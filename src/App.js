@@ -2,7 +2,7 @@ import './App.css';
 import Currency from './Currency'
 import {useEffect, useState} from 'react'
 
-const BASE_URL = 'http://api.exchangeratesapi.io/v1/latest?access_key=5d30bf6463063bd9f913b6bd184cf266'
+const BASE_URL = 'https://api.frankfurter.app/latest'
 
 // https://free.currconv.com/api/v7/convert?q=USD_PHP&compact=ultra&apiKey=1dbfb5b829c15c1df18f  - second open API
 
@@ -19,10 +19,10 @@ function App() {
   let toAmount, fromAmount
   if(inFromAmount){
     fromAmount = amount
-    toAmount = amount * rate
+    toAmount = Number.parseFloat(amount * rate).toFixed(3)
   }else{
     toAmount = amount 
-    fromAmount = amount / rate
+    fromAmount = Number.parseFloat(amount / rate).toFixed(3)
   }
   
   
@@ -40,11 +40,10 @@ function App() {
 
   useEffect(() => {
     if (fromCurr != null && toCurr != null) {
-      fetch(`https://free.currconv.com/api/v7/convert?q=${fromCurr}_${toCurr}&compact=ultra&apiKey=3f79e0653d720734ff61`)
+      fetch(`https://api.frankfurter.app/latest?amount=1&from=${fromCurr}&to=${toCurr}`)
         .then(res => res.json())
         .then(data => setRate(data.rates[toCurr]))
     }
-    console.log(`https://free.currconv.com/api/v7/convert?q=${fromCurr}_${toCurr}&compact=ultra&apiKey=3f79e0653d720734ff61`)
   }, [fromCurr, toCurr])
 
   function handleFromAmount(e){
