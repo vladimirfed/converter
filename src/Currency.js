@@ -9,11 +9,11 @@ const Currency = ({
 }) => {
   return (
     <div>
-      <h1>Currency</h1>
-      <input type="number" value={amount} onChange={onChangeAmount} />
-      <select value={selectCurr} onChange={onChangeCurr}>
+      
+      <input className="select" type="number" value={amount} onChange={onChangeAmount} />
+      <select className="select" value={selectCurr} onChange={onChangeCurr}>
         {currOptions.map((option) => (
-          <option key={option} value={option}>
+          <option className="options" key={option} value={option}>
             {option}
           </option>
         ))}
