@@ -2,7 +2,7 @@ import './App.css';
 import Currency from './Currency'
 import {useEffect, useState} from 'react'
 
-// const BASE_URL = 'http://api.exchangeratesapi.io/v1/latest?access_key=5d30bf6463063bd9f913b6bd184cf266'
+// const BASE_URL = 'http://api.exchangeratesapi.io/v1/latest?access_key=5d30bf6463063bd9f913b6bd184cf266' not actual (previous) API
 
 const BASE_URL   = 'https://free.currconv.com/api/v7/currencies?apiKey=1dbfb5b829c15c1df18f'
 
@@ -54,7 +54,6 @@ function App() {
         .then(res => res.json())
         .then(data => setRate(Object.values(data.results)[toCurr]))
     }
-    console.log(`https://free.currconv.com/api/v7/convert?q=${fromCurr}_${toCurr}&compact=ultra&apiKey=3f79e0653d720734ff61`)
   }, [fromCurr, toCurr])
 
   function handleFromAmount(e){
