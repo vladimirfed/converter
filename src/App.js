@@ -6,7 +6,6 @@ import { Routes, Route, Link } from 'react-router-dom';
 
 const BASE_URL = 'https://api.frankfurter.app/latest'
 
-// https://free.currconv.com/api/v7/convert?q=USD_PHP&compact=ultra&apiKey=1dbfb5b829c15c1df18f  - second open API
 
 function App() {
 
@@ -17,6 +16,7 @@ function App() {
   const [rate, setRate] = useState()
   const [amount, setAmount] = useState(1)
   const [inFromAmount, setInFromAmount] = useState(true)
+  
 
   let toAmount, fromAmount
   if(inFromAmount){
