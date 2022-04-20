@@ -1,6 +1,8 @@
 import './App.css';
 import Currency from './Currency'
+import List from './List'
 import {useEffect, useState} from 'react'
+import { Routes, Route, Link } from 'react-router-dom';
 
 const BASE_URL = 'https://api.frankfurter.app/latest'
 
@@ -9,12 +11,12 @@ const BASE_URL = 'https://api.frankfurter.app/latest'
 function App() {
 
   const [currOptions, setCurrOptions] = useState([])
+  const [currValues, setCurrValues] = useState([])
   const [fromCurr, setFromCurr] = useState()
   const [toCurr, setToCurr] = useState()
   const [rate, setRate] = useState()
   const [amount, setAmount] = useState(1)
   const [inFromAmount, setInFromAmount] = useState(true)
-  console.log(1)
 
   let toAmount, fromAmount
   if(inFromAmount){
@@ -32,6 +34,7 @@ function App() {
       .then(data=>{
         const firstCurrency = Object.keys(data.rates)[0]
         setCurrOptions([data.base, ...Object.keys(data.rates)])
+        setCurrValues([1, ...Object.values(data.rates)])
         setFromCurr(data.base)
         setToCurr(firstCurrency)
         setRate(data.rates[firstCurrency])
@@ -40,7 +43,7 @@ function App() {
 
   useEffect(() => {
     if (fromCurr != null && toCurr != null) {
-      fetch(`https://api.frankfurter.app/latest?amount=1&from=${fromCurr}&to=${toCurr}`)
+      fetch(`${BASE_URL}?amount=1&from=${fromCurr}&to=${toCurr}`)
         .then(res => res.json())
         .then(data => setRate(data.rates[toCurr]))
     }
@@ -57,14 +60,19 @@ function App() {
   }
 
   return (
-    <div >
+    <div className="parent">
+      <header>
+        <Link to="/">Home</Link>
+        <Link to="/converter">Converter</Link>
+        <Link to="/list">List</Link>
+      </header>
       <h1  >Currencies Converter</h1>
       <Currency 
       currOptions={currOptions}
       selectCurr={fromCurr}
       onChangeCurr={e=>setFromCurr(e.target.value)}
       onChangeAmount={handleFromAmount}
-      amount={fromAmount} />
+      amount={fromAmount} /> 
       
       <h2>is equal to </h2>
       <Currency 
@@ -73,6 +81,12 @@ function App() {
       onChangeCurr={e=>setToCurr(e.target.value)}
       onChangeAmount={handleToAmount}
       amount={toAmount} />
+      <Routes>      
+        <Route path="/list" element={<List 
+      currOptions={currOptions}
+      currValues={currValues} />} />
+      </Routes>
+
       
     </div>
   );
