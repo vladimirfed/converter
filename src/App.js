@@ -8,8 +8,6 @@ import { Routes, Route, Link } from 'react-router-dom';
 const BASE_URL = 'https://api.frankfurter.app/latest'
 
 
-
-
 function App() {
 
   const [currOptions, setCurrOptions] = useState([])
@@ -89,8 +87,8 @@ function App() {
       currOptions={currOptions}
       currValues={currValues} />} />
       </Routes>
+//NEED TO REFACTOR ROUTES
 
-      
     </div>
   );
 }
